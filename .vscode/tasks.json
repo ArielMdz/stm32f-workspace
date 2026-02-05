@@ -1,0 +1,16 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "build demo_app.elf",
+            "command": ".\\make.bat",
+            "options": {
+                "cwd": "${workspaceFolder}/apps/demo"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent"
+            }
+        }
+    ]
+}
