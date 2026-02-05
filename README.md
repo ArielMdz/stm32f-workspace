@@ -12,7 +12,7 @@ El objetivo principal del proyecto es **simplificar y estandarizar** la creació
 - Pensado para usarse en **Windows + VSCode**
 - **No requiere instalar toolchains globales**
 - Toolchains y utilidades **incluidas de forma local**
-- Generación automática de apps mediante `appgen.py`
+- Generación automática de apps mediante `appgen.bat`
 - Estructura limpia y reutilizable para múltiples proyectos
 - Cada app es **autosuficiente** y se trabaja de forma aislada
 
@@ -23,7 +23,7 @@ El objetivo principal del proyecto es **simplificar y estandarizar** la creació
 Únicamente necesitas:
 
 - Clonar este repositorio
-- Tener **Python 3** instalado y accesible desde la terminal
+- Tener terminal **PowerShell** instalado
 
 No es necesario instalar:
 - GCC ARM
@@ -66,7 +66,7 @@ STM32F446RE/
 │   ├── arm-none-eabi   # GCC ARM toolchain para compilación
 │   ├── OpenOCD         # OpenOCD para programación y depuración
 │   └── make            # Make utility
-├── appgen.py           # Generador de nuevas apps
+├── appgen.bat          # Generador de nuevas apps
 └── README.md           # Este archivo
 ```
 
@@ -74,25 +74,26 @@ STM32F446RE/
 
 ## Flujo de trabajo
 
-1. Crear una nueva app usando `appgen.py`
+1. Crear una nueva app usando `appgen.bat <NombreDeLaApp>`
 2. La app se genera automáticamente dentro de la carpeta `apps/`
 3. Todo el desarrollo, compilación y carga se realiza **desde la carpeta de la app**
 4. Cada app es independiente del resto
 
 ---
 
-## Uso de `appgen.py`
+## Uso de `appgen.bat`
 
-El script `appgen.py` se encarga de:
+El script `appgen.bat` se encarga de:
 
 - Copiar la plantilla ubicada en `Template/`
 - Renombrarla con el nombre proporcionado
 - Guardar la nueva app dentro de la carpeta `apps/`
+- Re-ubicara la terminal en la carpeta de la nueva app
 
 ### Ejemplo de uso
 
 ```bash
-python appgen.py MiNuevaApp
+appgen.bat <MiNuevaApp>
 ```
 
 Esto generará automáticamente:
