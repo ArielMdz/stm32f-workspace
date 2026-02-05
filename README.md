@@ -44,8 +44,9 @@ STM32F446RE/
 │
 ├── apps/               # Aplicaciones creadas por el usuario
 │   └── Demo/           # Ejemplo de app generada
-│       ├── Inc/
-│       ├── Src/
+│       ├── Inc/        # Carpeta de headers
+│       ├── Src/        # Carpeta de código fuente
+│       │   └── main.c
 │       ├── make.bat
 │       ├── Makefile
 │       └── README.md
@@ -54,7 +55,7 @@ STM32F446RE/
 ├── Linker/             # Scripts de linker (NO modificar)
 ├── Startup/            # Código de arranque (NO modificar)
 │
-├── Template/           # Plantilla base para nuevas apps
+├── Template/           # Plantilla base para nuevas apps (NO modificar)
 │   ├── Inc/
 │   ├── Src/
 │   ├── make.bat
@@ -62,10 +63,14 @@ STM32F446RE/
 │   └── README.md
 │
 ├── toolchain/          # Toolchains y herramientas locales
-│
+│   ├── arm-none-eabi   # GCC ARM toolchain para compilación
+│   ├── OpenOCD         # OpenOCD para programación y depuración
+│   └── make            # Make utility
 ├── appgen.py           # Generador de nuevas apps
 └── README.md           # Este archivo
 ```
+
+---
 
 ## Flujo de trabajo
 
@@ -99,7 +104,7 @@ con toda la estructura mínima necesaria para comenzar a trabajar.
 
 ---
 
-### Compilación y carga
+## Compilación y carga
 
 ⚠ **Toda compilación, carga o depuración debe realizarse desde la carpeta de la app**, no desde la raíz del proyecto.
 

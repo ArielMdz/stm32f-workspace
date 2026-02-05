@@ -51,7 +51,7 @@ def main():
     create_app(app_name)
 
     # Reemplazar textos en los archivos de la nueva app
-    replace_text_in_file(APPS_DIR / app_name / "Makefile", "APP_NAME = Template.elf", f"APP_NAME = {app_name}.elf")
+    replace_text_in_file(APPS_DIR / app_name / "Makefile", "APP_NAME = Template", f"APP_NAME = {app_name}")
 
     replace_text_in_file(APPS_DIR / app_name / "README.md", "# Aplicación STM32F446RE — Template", f"# Aplicación STM32F446RE — {app_name}")
 

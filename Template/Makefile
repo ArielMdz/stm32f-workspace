@@ -8,6 +8,7 @@ SDK_ROOT = $(APP_DIR)/../..
 TOOLCHAIN = $(SDK_ROOT)/toolchain/arm-none-eabi/bin/arm-none-eabi-
 CC  = $(TOOLCHAIN)gcc
 AS  = $(TOOLCHAIN)as
+OBJCOPY = $(TOOLCHAIN)objcopy
 PROGRAMMER = $(SDK_ROOT)/toolchain/OpenOCD/bin/openocd.exe
 
 # MCU specific flags
@@ -47,16 +48,26 @@ INCLUDES =\
 PROGRAMMER_FLAGS=-f interface/stlink.cfg -f target/stm32f4x.cfg
 
 # Output application name
-APP_NAME = Template.elf
+APP_NAME = Template
 
 # Default target
 all: clean build flash
 
-build: makedir $(BIN_DIR)/$(APP_NAME)
+build: makedir $(BIN_DIR)/$(APP_NAME).elf $(BIN_DIR)/$(APP_NAME).hex $(BIN_DIR)/$(APP_NAME).bin
 
-$(BIN_DIR)/$(APP_NAME): $(OBJ)
+# Generar ELF a partir de los objetos
+$(BIN_DIR)/$(APP_NAME).elf: $(OBJ)
 	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) $^ -o $@
 
+# Generar HEX a partir del ELF
+$(BIN_DIR)/$(APP_NAME).hex: $(BIN_DIR)/$(APP_NAME).elf
+	$(OBJCOPY) -O ihex $< $@
+
+# Generar BIN a partir del ELF
+$(BIN_DIR)/$(APP_NAME).bin: $(BIN_DIR)/$(APP_NAME).elf
+	$(OBJCOPY) -O binary $< $@
+
+# Reglas para compilar los archivos fuente en objetos
 $(BUILD_DIR)/%.o: $(APP_DIR)/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
@@ -74,7 +85,7 @@ makedir:
 clean:
 	rm -rf $(BUILD_DIR) $(BIN_DIR)
 
-flash: $(BIN_DIR)/$(APP_NAME)
-	$(PROGRAMMER) $(PROGRAMMER_FLAGS) -c "program $(BIN_DIR)/$(APP_NAME) verify reset exit"
+flash: $(BIN_DIR)/$(APP_NAME).elf
+	$(PROGRAMMER) $(PROGRAMMER_FLAGS) -c "program $(BIN_DIR)/$(APP_NAME).elf verify reset exit"
 
 .PHONY: all clean build makedir flash
