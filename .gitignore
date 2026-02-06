@@ -1,2 +1,5 @@
-bin/
-build/
+# .gitignore
+
+# Ignorar archivos generados durante la compilación y construcción de proyectos
+bin\
+build\
