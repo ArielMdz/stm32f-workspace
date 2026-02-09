@@ -1,5 +1,6 @@
 # .gitignore
 
 # Ignorar archivos generados durante la compilación y construcción de proyectos
-bin\
-build\
+# La sintaxis **/ ignora carpetas con ese nombre en cualquier ubicación
+**/bin/
+**/build/
