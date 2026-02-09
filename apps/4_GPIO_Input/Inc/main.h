@@ -1,0 +1,48 @@
+// main.h file for STM32F4xx microcontrollers
+#include <stdint.h>
+
+#define PERIPH_BASE (0x40000000UL)
+#define AHB1PERIPH_OFFSET (0x00020000UL)
+#define AHB1PERIPH_BASE (PERIPH_BASE + AHB1PERIPH_OFFSET)
+
+#define GPIOA_OFFSET (0x0000UL) // 0x0000 0000
+#define GPIOA_BASE (AHB1PERIPH_BASE + GPIOA_OFFSET)
+
+#define GPIOC_OFFSET (0x0800UL) // 0x0000 0800
+#define GPIOC_BASE (AHB1PERIPH_BASE + GPIOC_OFFSET)
+
+#define RCC_OFFSET (0x3800UL)
+#define RCC_BASE (AHB1PERIPH_BASE + RCC_OFFSET)
+
+#define GPIOAEN (1U << 0)
+#define GPIOCEN (1U << 2)
+#define PIN5 (1U << 5)
+#define PIN13 (1U << 13)
+#define LED_PIN PIN5
+#define USER_BUTTON_PIN PIN13
+
+#define __IO volatile
+
+typedef struct
+{
+    uint32_t DUMMY[12];
+    __IO uint32_t AHB1ENR;  //* RCC AHB1 peripheral clock register,			Address offset: 0x30
+
+} RCC_TypeDef;
+
+typedef struct
+{
+    __IO uint32_t MODER;	//*< GPIO port mode register,					Address offset: 0x00
+    __IO uint32_t OTYPER;	//*< GPIO port output type register,			Address offset: 0x04
+    __IO uint32_t OSPEEDR;	//*< GPIO port output speed register,			Address offset: 0x08
+    __IO uint32_t PUPDR;	//*< GPIO port pull-up/pull-down register,		Address offset: 0x0C
+    __IO uint32_t IDR;		//*< GPIO port input data register,				Address offset: 0x10
+    __IO uint32_t ODR;		//*< GPIO port output data register,			Address offset: 0x14
+    __IO uint32_t BSRR;		//*< GPIO port bit set/reset register,			Address offset: 0x18
+    __IO uint32_t LCKR;		//*< GPIO port configuration lock register,		Address offset: 0x1C
+    __IO uint32_t AFR[2];	//*< GPIO port output type register,			Address offset: 0x20-0x24
+}GPIO_TypeDef;
+
+#define RCC ((RCC_TypeDef *)RCC_BASE)
+#define GPIOA ((GPIO_TypeDef *)GPIOA_BASE)
+#define GPIOC ((GPIO_TypeDef *)GPIOC_BASE)
